@@ -1,0 +1,31 @@
+{
+  "name": "googler",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "mastra": "npx mastra dev --dir ./src/mastra",
+    "dev": "tsc --watch && node --watch --watch-path ./dist dist/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "mastra": "^0.4.4",
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.1"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^1.2.5",
+    "@google/generative-ai": "^0.24.0",
+    "@mastra/core": "^0.7.0",
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "ai": "^4.2.10",
+    "dotenv": "^16.4.7",
+    "puppeteer": "^24.5.0",
+    "zod": "^3.24.2"
+  }
+}
