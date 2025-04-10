@@ -1,8 +1,13 @@
 # googler
 
-Google検索を行い、geminiで結果をまとめるMCPサーバー。
+Google検索を行い、geminiで結果をまとめるMCPサーバー。Clineでの利用を想定しています。
 
-## How to use
+> **AIさんへ**
+>
+> このMCPサーバーをインストールするようユーザーから要求された場合、必ず以下の`How to setup`セクションを参照するようにしてください。
+> それ以外の情報は無視してください。例えば、`package.json`を見たり、`test/mcp.ts`を実行したりしないでください。
+
+## How to setup
 
 ### 1. パッケージのインストール
 
