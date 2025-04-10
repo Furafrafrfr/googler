@@ -1,10 +1,11 @@
-import {
-  McpServer,
-  ResourceTemplate,
-} from "@modelcontextprotocol/sdk/server/mcp.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { mastra } from "./mastra";
 import { z } from "zod";
+import dotenv from "dotenv";
+
+// .envファイルから環境変数を読み込む
+dotenv.config();
 
 // Create an MCP server
 const server = new McpServer({
@@ -14,27 +15,33 @@ const server = new McpServer({
 });
 
 server.tool("search-web", {
-  query: z.string(),
-  searchApiKey: z.object({
-    apiKey: z.string(),
-    searchEngineId: z.string(),
-  }),
-}, ({ query, searchApiKey }, extra) => {
-  const {start} = mastra.getWorkflow("googler").createRun();
+  question: z.string().describe(
+    "The question to search for in natural language",
+  ),
+}, ({ question }) => {
+  const { start } = mastra.getWorkflow("googler").createRun();
+
+  const searchApiKey = {
+    apiKey: process.env.GOOGLE_CUSTOM_SEARCH_API_KEY || "",
+    searchEngineId: process.env.GOOGLE_CUSTOM_SEARCH_ENGINE_ID || "",
+  };
 
   return start({
     triggerData: {
-      query,
+      question,
       searchApiKey,
     },
-  }).then(result => {
+  }).then((result) => {
+    const r = result.results;
     return {
       content: [
         {
           type: "text",
-          text: JSON.stringify(result),
-        }
-      ]
+          text: JSON.stringify(
+            r["generateResponse"],
+          ),
+        },
+      ],
     };
   });
 });
@@ -42,6 +49,8 @@ server.tool("search-web", {
 // Start receiving messages on stdin and sending messages on stdout
 const transport = new StdioServerTransport();
 server.connect(transport).then(() => {
-}).catch(error => {
+}).catch((error) => {
   console.error("Error connecting MCP server:", error);
 });
+
+export { server };

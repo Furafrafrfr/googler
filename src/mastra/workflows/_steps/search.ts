@@ -11,12 +11,14 @@ export const search = new Step({
         })),
     }),
     execute: async ({ context }) => {
+        const { query } = context.getStepResult(buildQuery);
+
         const response = await searchGoogle(
-            context.triggerData.query,
+            query,
             context.triggerData.searchApiKey,
             {
-                num: 5,
-            }
+                num: 3,
+            },
         );
 
         const results = response.items?.map((item) => ({

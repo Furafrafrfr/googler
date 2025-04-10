@@ -21,6 +21,9 @@ export async function search(
 
   // APIリクエストURLを構築
   const url = new URL('https://www.googleapis.com/customsearch/v1');
+
+
+
   url.searchParams.append('key', key.apiKey);
   url.searchParams.append('cx', key.searchEngineId);
   url.searchParams.append('q', query);

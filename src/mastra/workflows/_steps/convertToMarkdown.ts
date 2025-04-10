@@ -1,7 +1,7 @@
 import { Step } from "@mastra/core";
 import { markdown } from "../../../mastra/agents/markdown";
 import * as z from "zod";
-import { renderHtml } from "./renderHtml";
+import { extractContent } from "./extractContent";
 
 export const convertToMarkdown = new Step({
     id: "convertToMarkdown",
@@ -12,13 +12,13 @@ export const convertToMarkdown = new Step({
         }),
     ),
     execute: async ({ context }) => {
-        const renderedPages = context.getStepResult(renderHtml);
+        const extractedContents = context.getStepResult(extractContent);
 
         const markdownContents = await Promise.all(
-            renderedPages.map(async (page) => {
-                const markdownResult = await markdown.generate(page.html);
+            extractedContents.map(async (content) => {
+                const markdownResult = await markdown.generate(content.content);
                 return {
-                    link: page.link,
+                    link: content.link,
                     markdown: markdownResult.text,
                 };
             })

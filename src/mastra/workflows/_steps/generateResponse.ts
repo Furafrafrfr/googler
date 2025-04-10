@@ -18,12 +18,14 @@ export const generateResponse = new Step({
 質問: ${question}
 
 検索結果:
-${markdownContents.map((content, index) => `
+${
+            markdownContents.map((content, index) => `
 ソース ${index + 1}: ${content.link}
 
 ${content.markdown}
 ---
-`).join('\n')}
+`).join("\n")
+        }
 
 上記の検索結果に基づいて、質問に回答してください。
 `;
@@ -31,7 +33,7 @@ ${content.markdown}
         const responseResult = await responder.generate(promptContent);
 
         // 使用したソースのリンクを抽出
-        const sources = markdownContents.map(content => content.link);
+        const sources = markdownContents.map((content) => content.link);
 
         return {
             response: responseResult.text,
