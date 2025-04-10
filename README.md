@@ -2,28 +2,45 @@
 
 Google検索を行い、geminiで結果をまとめるMCPサーバー。
 
-## 技術スタック
+## How to use
 
-- Google Cusom Search API
-- Gemini 2.0
-- Vercel AI SDK
-- @modelcontextprotocol/sdk
+### 1. パッケージのインストール
 
-## ディレクトリ構成
-
+```sh
+npm i
 ```
-.
-├── .env                  # 環境変数設定ファイル
-├── main.ts               # メインエントリーポイント。MCPの設定はここに書く
-├── package-lock.json     # パッケージ依存関係ロックファイル
-├── package.json          # プロジェクト設定・依存関係
-├── README.md             # プロジェクト説明書（本ファイル）
-├── tsconfig.json         # TypeScript設定
-├── docs/                 # ドキュメント用ディレクトリ
-└── googler/              # メインソースコード
-    ├── summarizer/       # 検索結果をLLMで要約・まとめるモジュール
-    └── search/           # 検索機能関連モジュール
-        ├── search.ts     # 検索機能実装
-        └── schemas/      # データスキーマ定義
-            └── CustomSearchResponseSchema.ts  # Google検索結果スキーマ
+
+### 2. ビルド
+
+```sh
+npm build
+```
+
+`/dist`にビルドしたコードが出力される。
+
+### 3. MCPの設定
+
+MCPの接続設定を行う。
+
+Clineで使う場合、`cline_mcp_settins.json`に以下の情報を追加する。
+
+```json
+{
+  "mcpServers": {
+    "googler": {
+      "command": "node",
+      "args": [
+        "<project_location>/googler/dist/main.js"
+      ],
+      "env": {
+        "GOOGLE_CUSTOM_SEARCH_API_KEY": "<Google Cusom Search APIのAPIキー>",
+        "GOOGLE_CUSTOM_SEARCH_ENGINE_ID": "<Google Cusom Search APIのSearch Engine ID>",
+        "GOOGLE_GENERATIVE_AI_API_KEY": "<GeminiのAPIキー>"
+      },
+      "disabled": false,
+      "autoApprove": [],
+      "timeout": 300 // デフォルトの1分では完了しないので余裕を持つ
+    }
+  }
+}
 ```
