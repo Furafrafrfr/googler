@@ -32,9 +32,6 @@ export async function render(url: string): Promise<string> {
       // styleタグを除去
       const styles = document.querySelectorAll("style");
       styles.forEach((style) => style.remove());
-      // iframeタグを除去
-      const iframes = document.querySelectorAll("iframe");
-      iframes.forEach((iframe) => iframe.remove());
       // svgタグの中身を除去
       const svgs = document.querySelectorAll("svg");
       svgs.forEach((svg) => {
@@ -54,3 +51,4 @@ export async function render(url: string): Promise<string> {
     await browser.close();
   }
 }
+

@@ -1,4 +1,4 @@
-import { CustomSearchResponse, CustomSearchResponseSchema } from '../googler/schemas/CustomSearchResponseSchema';
+import { CustomSearchResponse, CustomSearchResponseSchema } from '../schemas/CustomSearchResponseSchema';
 
 /**
  * Google Custom Search APIを使用して検索を実行する
@@ -21,8 +21,6 @@ export async function search(
 
   // APIリクエストURLを構築
   const url = new URL('https://www.googleapis.com/customsearch/v1');
-
-
 
   url.searchParams.append('key', key.apiKey);
   url.searchParams.append('cx', key.searchEngineId);

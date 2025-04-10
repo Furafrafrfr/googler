@@ -21,32 +21,8 @@ const googler = new Workflow({
 googler.step(buildQuery)
   .then(search)
   .then(renderHtml)
-  .then(extractContent)
   .then(convertToMarkdown)
-  .then(generateResponse);
+  .then(generateResponse)
+  .commit();
 
-
-  const step = new Step({
-    id: "demo",
-    outputSchema: z.object({
-        result: z.string(),
-    }),
-    execute: async ({ context }) => {
-        const { question } = context.triggerData;
-        const result = `return: ${question}`;
-        return { result };
-    },
-});
-
-const workflow = new Workflow({
-    name: "work",
-    steps: [step],
-    triggerSchema: z.object({
-        question: z.string(),
-    }),
-});
-
-workflow
-    .step(step);
-
-export { googler, workflow };
+export { googler };

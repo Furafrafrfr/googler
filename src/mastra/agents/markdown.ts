@@ -3,7 +3,7 @@ import { google } from "@ai-sdk/google";
 
 export const markdown = new Agent({
     name: "markdown",
-    model: google("gemini-2.0-flash-lite-preview-02-05", {}),
+    model: google("gemini-2.0-flash-001", {}),
     instructions:
         "WebページのHTMLコンテンツをMarkdown形式に変換してください。変換の際は以下のガイドラインに従ってください：\n\n" +
         "1. ヘッダー、フッター、ナビゲーションメニュー、広告などの余分な要素は除外し、本文コンテンツに集中してください。\n" +
@@ -12,5 +12,6 @@ export const markdown = new Agent({
         "4. 重要なテキストの強調（太字、斜体など）を保持してください。\n" +
         "5. 可能な限り元のコンテンツの構造と意味を保持してください。\n" +
         "6. 出力は整形されたMarkdownテキストのみにしてください。\n\n" +
-        "HTMLタグやスクリプト、スタイル定義などの技術的な要素は含めないでください。人間が読みやすい形式のMarkdownを生成することを目指してください。",
+        "HTMLタグやスクリプト、スタイル定義などの技術的な要素は含めないでください。人間が読みやすい形式のMarkdownを生成することを目指してください。\n\n" +
+        "マークダウンのみを出力してください。",
 });

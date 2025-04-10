@@ -1,5 +1,5 @@
 import { Mastra } from "@mastra/core";
-import { googler, workflow } from "./workflows/googler";
+import { googler } from "./workflows/googler";
 
 export const mastra = new Mastra({
     workflows: {

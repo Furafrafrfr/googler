@@ -3,7 +3,7 @@ import { google } from "@ai-sdk/google";
 
 export const responder = new Agent({
     name: "responder",
-    model: google("gemini-2.0-flash-exp", {}),
+    model: google("gemini-2.0-flash-001", {}),
     instructions: `
 ユーザーからの質問に対して、提供された検索結果をもとに包括的で正確な回答を作成してください。
 

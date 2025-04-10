@@ -3,20 +3,18 @@ import { google } from "@ai-sdk/google";
 
 export const queryBuilder = new Agent({
     name: "queryBuilder",
-    model: google("gemini-2.0-flash-exp", {}),
+    model: google("gemini-2.0-flash-001", {}),
     instructions:
-        `入力から重要語や関連語を追加してGoogle検索クエリを生成してください。
+        `<命令>
+以下の順番に沿って信頼性の高い情報を取得できるGoogleの検索クエリを考えてください。
 
-<出力>
-Google検索で使用できる形である必要があります。
+1. ユーザーの入力から、ユーザーが何を知りたいのかを考えてください。
+2. ユーザーが知りたい情報が含まれるWebサイトについて考える。
+  - 例: サイト種別（公式サイト、ブログ、SNS、フォーラムなど）
+3. ユーザーが知りたいことに対して、2で考えた参照先や重要語、関連語を単語として洗い出します。
+4. 3で考えた出したクエリ候補から、ユーザーが知りたい情報を含む信頼性の高いWebサイトがヒットしそうな検索クエリを考えます。
 
-例:
-- 明日 天気
-- 東京都 桜 時期
-
-<入力に対する出力例>
-以下の矢印の後ろが出力です。
-- "Azure OpenAIを利用する方法" -> Azure OpenAI ドキュメント チュートリアル
-- "No value exists in scope for the shorthand property 'context'. Either declare one or provide an initializer.の原因はなんですか？" -> No value exists in scope for the shorthand property 'context'. Either declare one or provide an initializer
-- "Google Custom Search APIに接続できません" -> Google Custom Search API 接続できない`
+<制約>
+- クエリは端的で最低限の単語を含むようにしてください。
+`,
 });
